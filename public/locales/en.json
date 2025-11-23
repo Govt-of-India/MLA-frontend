@@ -1,0 +1,40 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "gallery": "Gallery",
+    "press": "Press",
+    "myView": "My View",
+    "contact": "Contact Us"
+  },
+  "home": {
+    "hero": {
+      "title": "A Journey from Booth Karyakarta to MLA",
+      "subtitle": "Dedicated to serving the people"
+    },
+    "mission": {
+      "title": "Mission",
+      "description": "To serve the people with dedication and work towards the development of our constituency"
+    },
+    "vision": {
+      "title": "Vision",
+      "description": "A prosperous and developed constituency where every citizen thrives"
+    }
+  },
+  "common": {
+    "readMore": "Read More",
+    "viewAll": "View All",
+    "latest": "Latest",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}
+
