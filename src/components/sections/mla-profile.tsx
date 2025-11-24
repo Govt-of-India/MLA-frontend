@@ -1,10 +1,14 @@
 "use client"
 
-import Image from 'next/image'
-import { Card, CardContent } from '@/components/ui/card'
-import { Award, MapPin, Calendar } from 'lucide-react'
+import { useTranslations } from "next-intl"
+import { Card, CardContent } from "@/components/ui/card"
+import { Award, MapPin, Calendar } from "lucide-react"
+
+const ELECTED_YEAR = 2020
 
 export function MLAProfile() {
+  const t = useTranslations("profile")
+
   return (
     <section className="py-16">
       <div className="container">
@@ -18,26 +22,25 @@ export function MLAProfile() {
                   </div>
                 </div>
                 <div className="space-y-4">
-                  <h2 className="text-3xl font-bold">MLA Name</h2>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+                    {t("heading")}
+                  </p>
+                  <h2 className="text-3xl font-bold">{t("name")}</h2>
                   <div className="space-y-2 text-muted-foreground">
                     <div className="flex items-center space-x-2">
                       <MapPin className="h-5 w-5" />
-                      <span>Constituency Name</span>
+                      <span>{t("constituency")}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Award className="h-5 w-5" />
-                      <span>Years in Public Service</span>
+                      <span>{t("service")}</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-5 w-5" />
-                      <span>Elected Since: 2020</span>
+                      <span>{t("elected", { year: ELECTED_YEAR })}</span>
                     </div>
                   </div>
-                  <p className="text-muted-foreground">
-                    A dedicated public servant committed to the development and welfare of the
-                    constituency. Working tirelessly to address the needs of the people and bring
-                    about positive change.
-                  </p>
+                  <p className="text-muted-foreground">{t("description")}</p>
                 </div>
               </div>
             </CardContent>

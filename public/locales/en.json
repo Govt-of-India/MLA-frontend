@@ -7,9 +7,27 @@
     "myView": "My View",
     "contact": "Contact Us",
     "languages": {
-      "hindi": "हिंदी",
-      "english": "अंग्रेज़ी"
+      "label": "Language",
+      "hindi": "Hindi",
+      "english": "English"
     }
+  },
+  "pages": {
+    "about": "About",
+    "gallery": "Photo Gallery",
+    "news": "Latest News",
+    "videos": "Videos",
+    "contact": "Contact Us"
+  },
+  "footer": {
+    "brand": "MLA Portfolio",
+    "description": "Serving the people with dedication and commitment.",
+    "quickLinks": "Quick Links",
+    "connect": "Connect",
+    "contact": "Contact",
+    "email": "Email",
+    "phone": "Phone",
+    "rights": "All rights reserved."
   },
   "home": {
     "hero": {
@@ -23,6 +41,89 @@
     "vision": {
       "title": "Vision",
       "description": "A prosperous and developed constituency where every citizen thrives"
+    }
+  },
+  "sections": {
+    "achievements": {
+      "title": "Achievements"
+    },
+    "projects": {
+      "title": "Development Projects",
+      "items": {
+        "road": {
+          "title": "Road Development",
+          "description": "Construction of new roads connecting remote villages"
+        },
+        "water": {
+          "title": "Water Supply",
+          "description": "Installation of water supply systems in rural areas"
+        },
+        "education": {
+          "title": "Education Infrastructure",
+          "description": "Building new schools and upgrading existing facilities"
+        }
+      },
+      "status": {
+        "completed": "Completed",
+        "inProgress": "In Progress",
+        "planned": "Planned"
+      }
+    },
+    "news": {
+      "title": "Latest News"
+    },
+    "gallery": {
+      "title": "Photo Gallery"
+    },
+    "videos": {
+      "title": "Videos"
+    },
+    "events": {
+      "title": "Upcoming Events",
+      "empty": "No upcoming events at the moment."
+    },
+    "contact": {
+      "title": "Contact Us"
+    }
+  },
+  "profile": {
+    "heading": "Representative Profile",
+    "name": "Manish Rawat",
+    "constituency": "Constituency Name",
+    "service": "Years in Public Service",
+    "elected": "Elected Since: {{year}}",
+    "description": "A dedicated public servant committed to the development and welfare of the constituency. Working tirelessly to address the needs of the people and bring about positive change."
+  },
+  "contact": {
+    "form": {
+      "title": "Contact Form",
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": "Your name"
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": "your.email@example.com"
+        },
+        "phone": {
+          "label": "Phone (Optional)",
+          "placeholder": "+91 1234567890"
+        },
+        "message": {
+          "label": "Message",
+          "placeholder": "Your message..."
+        }
+      },
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully.",
+      "error": "Failed to send message. Please try again.",
+      "errors": {
+        "name": "Name must be at least 2 characters",
+        "email": "Invalid email address",
+        "message": "Message must be at least 10 characters"
+      }
     }
   },
   "common": {

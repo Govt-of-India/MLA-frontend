@@ -3,13 +3,15 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
-import { Search, Globe, Sun, Moon, Menu, X } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { Search, Globe, Sun, Moon, Menu, X, Check } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
@@ -20,6 +22,7 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const pathname = usePathname()
+  const router = useRouter()
   const locale = useLocale()
   const t = useTranslations("nav")
 
@@ -27,14 +30,16 @@ export function Navbar() {
     setMounted(true)
   }, [])
 
-  const toggleLocale = (newLocale: string) => {
-    // Handle root path
-    if (pathname === `/${locale}` || pathname === `/${locale}/`) {
-      window.location.href = `/${newLocale}`
-    } else {
-      const newPath = pathname.replace(`/${locale}`, `/${newLocale}`)
-      window.location.href = newPath
-    }
+  const handleLocaleSwitch = (newLocale: string) => {
+    if (!pathname || newLocale === locale) return
+
+    const isRootPath =
+      pathname === `/${locale}` || pathname === `/${locale}/`
+    const nextPath = isRootPath
+      ? `/${newLocale}`
+      : pathname.replace(`/${locale}`, `/${newLocale}`)
+
+    router.replace(nextPath)
   }
 
   const navItems = [
@@ -45,6 +50,17 @@ export function Navbar() {
     { href: `/${locale}/videos`, label: t("myView") },
     { href: `/${locale}/contact`, label: t("contact") },
   ]
+
+  const isRouteActive = (href: string) => {
+    const isRoot = href === `/${locale}`
+    if (!pathname) return false
+
+    if (isRoot) {
+      return pathname === href || pathname === `${href}/`
+    }
+
+    return pathname === href || pathname.startsWith(`${href}/`)
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FF7A59] shadow-md">
@@ -60,21 +76,17 @@ export function Navbar() {
           <div className="flex items-center space-x-4 ml-auto">
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              {navItems.map((item) => {
-                const isActive =
-                  pathname === item.href || pathname.startsWith(item.href + "/")
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 rounded-md ${
-                      isActive ? "bg-white/20" : ""
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 rounded-md ${
+                    isRouteActive(item.href) ? "bg-white/20" : ""
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
 
             {/* Right Side Icons */}
@@ -86,27 +98,44 @@ export function Navbar() {
                   variant="ghost"
                   size="icon"
                   className="h-9 w-9 rounded-full text-white hover:bg-white/20"
-                  aria-label="Select language"
+                  aria-label={t("languages.label")}
                 >
                   <Globe className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-40 bg-white rounded-lg shadow-lg border border-gray-200"
+                className="w-44 bg-white rounded-lg shadow-lg border border-gray-200 p-0"
               >
-                <DropdownMenuItem
-                  onClick={() => toggleLocale("hi")}
-                  className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
-                >
-                  {t("languages.hindi")}
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => toggleLocale("en")}
-                  className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
-                >
-                  {t("languages.english")}
-                </DropdownMenuItem>
+                <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-3 py-2">
+                  {t("languages.label")}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-gray-100" />
+                {[
+                  { code: "en", label: t("languages.english") },
+                  { code: "hi", label: t("languages.hindi") },
+                ].map((option) => (
+                  <DropdownMenuItem
+                    key={option.code}
+                    onSelect={(event) => {
+                      event.preventDefault()
+                      handleLocaleSwitch(option.code)
+                    }}
+                    className="cursor-pointer px-4 py-2 text-sm focus:bg-gray-100 flex items-center justify-between"
+                  >
+                    <div className="flex flex-col text-left">
+                      <span className="font-medium text-gray-900">
+                        {option.label}
+                      </span>
+                      <span className="text-xs uppercase text-gray-500">
+                        {option.code}
+                      </span>
+                    </div>
+                    {locale === option.code && (
+                      <Check className="h-4 w-4 text-[#FF7A59]" />
+                    )}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -161,23 +190,18 @@ export function Navbar() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-white/20 bg-[#FF7A59]">
             <nav className="flex flex-col space-y-1 py-4">
-              {navItems.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  pathname.startsWith(item.href + "/")
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 rounded-md ${
-                      isActive ? "bg-white/20" : ""
-                    }`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              })}
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 rounded-md ${
+                    isRouteActive(item.href) ? "bg-white/20" : ""
+                  }`}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
           </div>
         )}

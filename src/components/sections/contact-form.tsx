@@ -1,29 +1,42 @@
 "use client"
 
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useToast } from '@/hooks/use-toast'
-import { Mail, Phone, User } from 'lucide-react'
+import { useMemo, useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import * as z from "zod"
+import { useTranslations } from "next-intl"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useToast } from "@/hooks/use-toast"
+import { Mail, Phone, User } from "lucide-react"
 
-const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().optional(),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-})
-
-type ContactFormData = z.infer<typeof contactSchema>
+type ContactFormData = {
+  name: string
+  email: string
+  phone?: string
+  message: string
+}
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
+  const t = useTranslations("contact.form")
+  const common = useTranslations("common")
+
+  const contactSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, t("errors.name")),
+        email: z.string().email(t("errors.email")),
+        phone: z.string().optional(),
+        message: z.string().min(10, t("errors.message")),
+      }),
+    [t]
+  )
+
   const {
     register,
     handleSubmit,
@@ -36,29 +49,26 @@ export function ContactForm() {
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true)
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       })
 
-      const result = await response.json()
-
       if (response.ok) {
         toast({
-          title: 'Success',
-          description: 'Your message has been sent successfully.',
+          title: common("success"),
+          description: t("success"),
         })
         reset()
       } else {
-        throw new Error(result.error || 'Failed to send message')
+        throw new Error()
       }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to send message. Please try again.'
+    } catch {
       toast({
-        title: 'Error',
-        description: errorMessage,
-        variant: 'destructive',
+        title: common("error"),
+        description: t("error"),
+        variant: "destructive",
       })
     } finally {
       setIsSubmitting(false)
@@ -70,19 +80,19 @@ export function ContactForm() {
       <div className="container max-w-2xl">
         <Card>
           <CardHeader>
-            <CardTitle className="text-3xl text-center">Contact Us</CardTitle>
+            <CardTitle className="text-3xl text-center">{t("title")}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">
                   <User className="inline h-4 w-4 mr-2" />
-                  Name
+                  {t("fields.name.label")}
                 </Label>
                 <Input
                   id="name"
-                  {...register('name')}
-                  placeholder="Your name"
+                  {...register("name")}
+                  placeholder={t("fields.name.placeholder")}
                 />
                 {errors.name && (
                   <p className="text-sm text-destructive">{errors.name.message}</p>
@@ -92,13 +102,13 @@ export function ContactForm() {
               <div className="space-y-2">
                 <Label htmlFor="email">
                   <Mail className="inline h-4 w-4 mr-2" />
-                  Email
+                  {t("fields.email.label")}
                 </Label>
                 <Input
                   id="email"
                   type="email"
-                  {...register('email')}
-                  placeholder="your.email@example.com"
+                  {...register("email")}
+                  placeholder={t("fields.email.placeholder")}
                 />
                 {errors.email && (
                   <p className="text-sm text-destructive">{errors.email.message}</p>
@@ -108,22 +118,22 @@ export function ContactForm() {
               <div className="space-y-2">
                 <Label htmlFor="phone">
                   <Phone className="inline h-4 w-4 mr-2" />
-                  Phone (Optional)
+                  {t("fields.phone.label")}
                 </Label>
                 <Input
                   id="phone"
                   type="tel"
-                  {...register('phone')}
-                  placeholder="+91 1234567890"
+                  {...register("phone")}
+                  placeholder={t("fields.phone.placeholder")}
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
+                <Label htmlFor="message">{t("fields.message.label")}</Label>
                 <Textarea
                   id="message"
-                  {...register('message')}
-                  placeholder="Your message..."
+                  {...register("message")}
+                  placeholder={t("fields.message.placeholder")}
                   rows={5}
                 />
                 {errors.message && (
@@ -132,7 +142,7 @@ export function ContactForm() {
               </div>
 
               <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {isSubmitting ? t("sending") : t("submit")}
               </Button>
             </form>
           </CardContent>

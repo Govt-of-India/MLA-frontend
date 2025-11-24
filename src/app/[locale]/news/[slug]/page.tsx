@@ -1,20 +1,33 @@
-import { notFound } from 'next/navigation'
-import Image from 'next/image'
-import { format } from 'date-fns'
-import { Card, CardContent } from '@/components/ui/card'
-import { mockNews } from '@/lib/mock-data'
+import Image from "next/image"
+import { format } from "date-fns"
+import { enUS, hi as hiLocale } from "date-fns/locale"
+import { notFound } from "next/navigation"
+import { Card, CardContent } from "@/components/ui/card"
+import { mockNews } from "@/lib/mock-data"
+
+type NewsDetailParams = {
+  slug: string
+  locale: string
+}
 
 export default async function NewsDetailPage({
   params,
 }: {
-  params: Promise<{ slug: string; locale: string }>
+  params: NewsDetailParams
 }) {
-  const { slug } = await params
-  const news = mockNews.find(item => item.slug === slug && item.published)
+  const { slug, locale } = params
+  const news = mockNews.find((item) => item.slug === slug && item.published)
 
   if (!news) {
     notFound()
   }
+
+  const pickText = (hiValue?: string, enValue?: string) =>
+    locale === "hi" && hiValue ? hiValue : enValue ?? hiValue ?? ""
+  const dateLocale = locale === "hi" ? hiLocale : enUS
+
+  const title = pickText(news.titleHi, news.titleEn)
+  const content = pickText(news.contentHi, news.contentEn)
 
   return (
     <div className="container py-16">
@@ -23,7 +36,7 @@ export default async function NewsDetailPage({
           <div className="relative h-96 w-full mb-8 rounded-lg overflow-hidden">
             <Image
               src={news.imageUrl}
-              alt={news.titleEn}
+              alt={title}
               fill
               className="object-cover"
               priority
@@ -35,18 +48,18 @@ export default async function NewsDetailPage({
 
         <div className="mb-4">
           <span className="text-sm text-muted-foreground">
-            {format(new Date(news.createdAt), 'MMMM dd, yyyy')}
+            {format(new Date(news.createdAt), "MMMM dd, yyyy", { locale: dateLocale })}
           </span>
         </div>
 
-        <h1 className="text-4xl font-bold mb-6">{news.titleEn}</h1>
+        <h1 className="text-4xl font-bold mb-6">{title}</h1>
 
         <Card>
           <CardContent className="p-8">
             <div
               className="prose prose-lg dark:prose-invert max-w-none"
               dangerouslySetInnerHTML={{
-                __html: news.contentEn.replace(/\n/g, '<br />'),
+                __html: content.replace(/\n/g, "<br />"),
               }}
             />
           </CardContent>
