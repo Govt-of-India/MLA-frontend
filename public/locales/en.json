@@ -5,7 +5,11 @@
     "gallery": "Gallery",
     "press": "Press",
     "myView": "My View",
-    "contact": "Contact Us"
+    "contact": "Contact Us",
+    "languages": {
+      "hindi": "हिंदी",
+      "english": "अंग्रेज़ी"
+    }
   },
   "home": {
     "hero": {
