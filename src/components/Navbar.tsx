@@ -2,20 +2,18 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useTheme } from "next-themes"
-import { Search, Globe, Sun, Moon, Menu, X, Check } from "lucide-react"
+import { Search, Sun, Moon, Menu, X, Check } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { LotusIcon } from "@/components/ui/lotus-icon"
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -62,13 +60,27 @@ export function Navbar() {
     return pathname === href || pathname.startsWith(`${href}/`)
   }
 
+  const languages = [
+    { code: "en", label: t("languages.english"), flag: "🇬🇧" },
+    { code: "hi", label: t("languages.hindi"), flag: "🇮🇳" },
+  ]
+
+  const currentLanguage = languages.find((lang) => lang.code === locale) || languages[0]
+
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FF7A59] shadow-md">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center space-x-3">
-            <LotusIcon className="h-8 w-8 text-white" />
+            <Image
+              src="/images/bjp-icon.png"
+              alt="BJP Logo"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
+              priority
+            />
             <span className="text-2xl font-bold text-white">Manish Rawat</span>
           </Link>
 
@@ -96,43 +108,62 @@ export function Navbar() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  size="icon"
-                  className="h-9 w-9 rounded-full text-white hover:bg-white/20"
+                  className="h-9 px-3 rounded-lg text-white hover:bg-white/20 flex items-center gap-2 font-medium"
                   aria-label={t("languages.label")}
                 >
-                  <Globe className="h-5 w-5" />
+                  <span className="text-lg">{currentLanguage.flag}</span>
+                  <span className="text-sm uppercase">{currentLanguage.code}</span>
+                  <svg
+                    className="h-4 w-4 opacity-70"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-44 bg-white rounded-lg shadow-lg border border-gray-200 p-0"
+                className="w-48 bg-white rounded-xl shadow-xl border border-gray-200/50 p-2 mt-2"
               >
-                <DropdownMenuLabel className="text-xs font-semibold text-gray-500 uppercase tracking-wide px-3 py-2">
-                  {t("languages.label")}
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-gray-100" />
-                {[
-                  { code: "en", label: t("languages.english") },
-                  { code: "hi", label: t("languages.hindi") },
-                ].map((option) => (
+                {languages.map((option) => (
                   <DropdownMenuItem
                     key={option.code}
                     onSelect={(event) => {
                       event.preventDefault()
                       handleLocaleSwitch(option.code)
                     }}
-                    className="cursor-pointer px-4 py-2 text-sm focus:bg-gray-100 flex items-center justify-between"
+                    className={`cursor-pointer px-4 py-3 rounded-lg text-sm transition-colors flex items-center justify-between gap-3 ${
+                      locale === option.code
+                        ? "bg-[#FF7A59]/10 hover:bg-[#FF7A59]/15"
+                        : "hover:bg-gray-50"
+                    }`}
                   >
-                    <div className="flex flex-col text-left">
-                      <span className="font-medium text-gray-900">
-                        {option.label}
-                      </span>
-                      <span className="text-xs uppercase text-gray-500">
-                        {option.code}
-                      </span>
+                    <div className="flex items-center gap-3 flex-1">
+                      <span className="text-xl">{option.flag}</span>
+                      <div className="flex flex-col">
+                        <span
+                          className={`font-medium ${
+                            locale === option.code
+                              ? "text-[#FF7A59]"
+                              : "text-gray-900"
+                          }`}
+                        >
+                          {option.label}
+                        </span>
+                        <span className="text-xs uppercase text-gray-500">
+                          {option.code}
+                        </span>
+                      </div>
                     </div>
                     {locale === option.code && (
-                      <Check className="h-4 w-4 text-[#FF7A59]" />
+                      <Check className="h-5 w-5 text-[#FF7A59] flex-shrink-0" />
                     )}
                   </DropdownMenuItem>
                 ))}

@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { Card, CardContent } from "@/components/ui/card"
 import { Award, MapPin, Calendar } from "lucide-react"
@@ -16,10 +17,15 @@ export function MLAProfile() {
           <Card>
             <CardContent className="p-8">
               <div className="grid md:grid-cols-2 gap-8 items-center">
-                <div className="relative aspect-square w-full max-w-sm mx-auto">
-                  <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 rounded-lg flex items-center justify-center">
-                    <span className="text-4xl font-bold text-primary">MLA</span>
-                  </div>
+                <div className="relative aspect-square w-full max-w-sm mx-auto overflow-hidden rounded-3xl shadow-[0_20px_60px_rgba(15,23,42,0.15)]">
+                  <Image
+                    src="/images/pic1.jpeg"
+                    alt={t("name")}
+                    fill
+                    priority
+                    className="object-cover"
+                    sizes="(max-width: 768px) 280px, 360px"
+                  />
                 </div>
                 <div className="space-y-4">
                   <p className="text-sm font-semibold uppercase tracking-wide text-primary">

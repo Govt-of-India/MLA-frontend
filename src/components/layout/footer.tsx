@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 
@@ -29,7 +30,16 @@ export function Footer() {
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">{tf("brand")}</h3>
+            <Link href={`/${locale}`} className="flex items-center space-x-2 mb-4">
+              <Image
+                src="/images/bjp-icon.png"
+                alt="BJP Logo"
+                width={24}
+                height={24}
+                className="h-6 w-6 object-contain"
+              />
+              <h3 className="text-lg font-semibold">{tf("brand")}</h3>
+            </Link>
             <p className="text-sm text-muted-foreground">{tf("description")}</p>
           </div>
 

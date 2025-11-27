@@ -1,5 +1,7 @@
 import { HeroSlider } from "@/components/layout/hero-slider"
 import { MissionVision } from "@/components/sections/mission-vision"
+import { ImpactSection } from "@/components/sections/impact"
+import { JourneySection } from "@/components/sections/journey"
 import { MLAProfile } from "@/components/sections/mla-profile"
 import { Achievements } from "@/components/sections/achievements"
 import { DevelopmentProjects } from "@/components/sections/development-projects"
@@ -32,8 +34,7 @@ export default async function HomePage() {
       : [
           {
             id: "default",
-            imageUrl:
-              "https://images.unsplash.com/photo-1511578314322-379afb476865?w=1920&h=1080&fit=crop",
+            imageUrl: "/images/banner-mla.jpeg",
             title: heroTranslations("title"),
             subtitle: heroTranslations("subtitle"),
           },
@@ -43,6 +44,8 @@ export default async function HomePage() {
     <div className="flex flex-col">
       <HeroSlider slides={slides} />
       <MissionVision />
+      <ImpactSection />
+      <JourneySection />
       <MLAProfile />
       <Achievements />
       <DevelopmentProjects />
