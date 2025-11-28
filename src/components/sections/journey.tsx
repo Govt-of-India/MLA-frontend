@@ -73,7 +73,7 @@ export function JourneySection() {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white dark:bg-slate-950">
       <div className="container">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
           <div>
@@ -112,13 +112,13 @@ export function JourneySection() {
                   }}
                   className="snap-center min-w-[280px] sm:min-w-[340px] lg:min-w-[420px] flex-shrink-0"
                 >
-                  <div className="h-full rounded-3xl border border-slate-100 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-transform duration-500 hover:-translate-y-1">
-                    <div className="relative h-44 w-full">
+                  <div className="h-full rounded-3xl border-2 border-saffron-200 dark:border-saffron-800 bg-white dark:bg-slate-900 overflow-hidden shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-500 hover:-translate-y-1 hover:border-saffron-400 dark:hover:border-saffron-600 hover:shadow-[0_25px_70px_rgba(255,122,89,0.25)]">
+                    <div className="relative h-64 md:h-80 w-full">
                       <Image
                         src={milestone.image}
                         alt={milestone.title}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="(max-width: 768px) 280px, (max-width: 1024px) 340px, 420px"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
