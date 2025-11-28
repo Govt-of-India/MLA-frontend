@@ -19,26 +19,25 @@ export default async function HomePage() {
     getTranslations("home.hero"),
   ])
 
-  const featuredPhotos = mockPhotos.filter((photo) => photo.featured).slice(0, 5)
+  const featuredPhotos = mockPhotos.filter((photo) => photo.featured).slice(0, 4)
 
-  const slides =
-    featuredPhotos.length > 0
-      ? featuredPhotos.map((photo) => ({
-          id: photo.id,
-          imageUrl: photo.imageUrl,
-          title:
-            locale === "hi" && photo.titleHi
-              ? photo.titleHi
-              : photo.titleEn ?? photo.titleHi ?? "",
-        }))
-      : [
-          {
-            id: "default",
-            imageUrl: "/images/banner-mla.jpeg",
-            title: heroTranslations("title"),
-            subtitle: heroTranslations("subtitle"),
-          },
-        ]
+  // Always start with the banner image as the main slide
+  const slides = [
+    {
+      id: "banner-main",
+      imageUrl: "/images/banner-mla.jpeg",
+      title: heroTranslations("title"),
+      subtitle: heroTranslations("subtitle"),
+    },
+    ...featuredPhotos.map((photo) => ({
+      id: photo.id,
+      imageUrl: photo.imageUrl,
+      title:
+        locale === "hi" && photo.titleHi
+          ? photo.titleHi
+          : photo.titleEn ?? photo.titleHi ?? "",
+    })),
+  ]
 
   return (
     <div className="flex flex-col">

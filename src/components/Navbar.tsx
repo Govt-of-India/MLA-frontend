@@ -61,8 +61,8 @@ export function Navbar() {
   }
 
   const languages = [
-    { code: "en", label: t("languages.english"), flag: "🇬🇧" },
-    { code: "hi", label: t("languages.hindi"), flag: "🇮🇳" },
+    { code: "en", label: t("languages.english") },
+    { code: "hi", label: t("languages.hindi") },
   ]
 
   const currentLanguage = languages.find((lang) => lang.code === locale) || languages[0]
@@ -72,7 +72,7 @@ export function Navbar() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href={`/${locale}`} className="flex items-center space-x-3">
+          <Link href={`/${locale}`} className="flex items-center space-x-3 -ml-6">
             <Image
               src="/images/bjp-icon.png"
               alt="BJP Logo"
@@ -111,7 +111,6 @@ export function Navbar() {
                   className="h-9 px-3 rounded-lg text-white hover:bg-white/20 flex items-center gap-2 font-medium"
                   aria-label={t("languages.label")}
                 >
-                  <span className="text-lg">{currentLanguage.flag}</span>
                   <span className="text-sm uppercase">{currentLanguage.code}</span>
                   <svg
                     className="h-4 w-4 opacity-70"
@@ -146,7 +145,6 @@ export function Navbar() {
                     }`}
                   >
                     <div className="flex items-center gap-3 flex-1">
-                      <span className="text-xl">{option.flag}</span>
                       <div className="flex flex-col">
                         <span
                           className={`font-medium ${
