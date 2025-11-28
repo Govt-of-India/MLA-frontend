@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useTheme } from "next-themes"
-import { Search, Sun, Moon, Menu, X, Check } from "lucide-react"
+import { Search, Sun, Moon, Menu, X, Check, Facebook, Twitter, Instagram, Youtube, MessageCircle, Mail, Phone } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
 import { useLocale, useTranslations } from "next-intl"
 import {
@@ -27,6 +27,17 @@ export function Navbar() {
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileMenuOpen])
 
   const handleLocaleSwitch = (newLocale: string) => {
     if (!pathname || newLocale === locale) return
@@ -66,6 +77,19 @@ export function Navbar() {
   ]
 
   const currentLanguage = languages.find((lang) => lang.code === locale) || languages[0]
+
+  const socialLinks = [
+    { icon: Facebook, href: "https://www.facebook.com/manishrawatmlabjp", label: "Facebook" },
+    { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter" },
+    { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram" },
+    { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube" },
+    { icon: MessageCircle, href: "https://wa.me/91941577090", label: "WhatsApp" },
+  ]
+
+  const contactInfo = {
+    email: "manishrawatmla@gmail.com",
+    phone: "+91 94157 7090"
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full bg-[#FF7A59] shadow-md">
@@ -201,7 +225,7 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden h-9 w-9 rounded-full text-white hover:bg-white/20"
+              className="h-9 w-9 rounded-full text-white hover:bg-white/20"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -215,24 +239,79 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Half Screen Glass Transparent Overlay Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden border-t border-white/20 bg-[#FF7A59]">
-            <nav className="flex flex-col space-y-1 py-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 rounded-md ${
-                    isRouteActive(item.href) ? "bg-white/20" : ""
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
+          <>
+            {/* Transparent Overlay Background */}
+            <div
+              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+            {/* Glass Menu Panel - Reduced Width */}
+            <div className="fixed right-0 top-0 h-full w-80 z-50 flex flex-col">
+              <div className="h-full bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl border-l border-white/20 dark:border-slate-700/20 shadow-2xl p-8 overflow-y-auto">
+                {/* Close Button */}
+                <div className="flex justify-end mb-8">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="h-10 w-10 rounded-full text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm"
+                    aria-label="Close menu"
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                </div>
+                {/* Contact Information */}
+                <div className="space-y-4 mb-8">
+                  <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wide">Contact</h3>
+                  
+                  {/* Email */}
+                  <a
+                    href={`mailto:${contactInfo.email}`}
+                    className="flex items-center gap-3 px-6 py-4 text-base font-medium rounded-lg transition-all backdrop-blur-md text-white hover:bg-white/10 border border-white/15"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Mail className="h-5 w-5 flex-shrink-0" />
+                    <span className="text-sm">{contactInfo.email}</span>
+                  </a>
+
+                  {/* Phone */}
+                  <a
+                    href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                    className="flex items-center gap-3 px-6 py-4 text-base font-medium rounded-lg transition-all backdrop-blur-md text-white hover:bg-white/10 border border-white/15"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Phone className="h-5 w-5 flex-shrink-0" />
+                    <span className="text-sm">{contactInfo.phone}</span>
+                  </a>
+                </div>
+
+                {/* Social Media Buttons - Horizontal */}
+                <div>
+                  <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wide">Follow</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {socialLinks.map((social) => {
+                      const Icon = social.icon
+                      return (
+                        <a
+                          key={social.label}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="h-12 w-12 rounded-full bg-[#FF7A59]/40 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white hover:bg-[#FF7A59]/60 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                          aria-label={social.label}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <Icon className="h-5 w-5" />
+                        </a>
+                      )
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
         )}
       </nav>
     </header>

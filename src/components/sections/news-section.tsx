@@ -3,7 +3,7 @@ import Image from "next/image"
 import { format } from "date-fns"
 import { enUS, hi as hiLocale } from "date-fns/locale"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { mockNews, delay } from "@/lib/mock-data"
 import { getLocale, getTranslations } from "next-intl/server"
 
@@ -28,12 +28,11 @@ export async function NewsSection() {
   return (
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold">{tSection("title")}</h2>
-          <Link href={`/${locale}/news`}>
-            <Button variant="outline">{tCommon("viewAll")}</Button>
-          </Link>
-        </div>
+        <SectionHeading 
+          title={tSection("title")} 
+          linkHref={`/${locale}/news`}
+          viewAllText={tCommon("viewAll")}
+        />
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {news.map((item) => (
             <Link key={item.id} href={`/${locale}/news/${item.slug}`}>

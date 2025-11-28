@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { Hammer } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
@@ -23,7 +24,7 @@ export async function DevelopmentProjects() {
   return (
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
-        <h2 className="text-3xl font-bold mb-8 text-center">{t("title")}</h2>
+        <SectionHeading title={t("title")} />
         <div className="grid md:grid-cols-3 gap-6">
           {PROJECTS.map((project) => (
             <Card key={project.key}>

@@ -84,6 +84,91 @@
     },
     "contact": {
       "title": "Contact Us"
+    },
+    "impact": {
+      "label": "Impact",
+      "years": "25+",
+      "yearsLabel": "Years in Public Service",
+      "description": "Journey from a polling booth worker to Union Home Minister, driven by people-first governance and relentless dedication.",
+      "highlights": {
+        "peoplesPerson": {
+          "title": "People's Person",
+          "description": "10 years as an elected representative serving people as MLA, Rajya Sabha MP, and Lok Sabha MP."
+        },
+        "facilitator": {
+          "title": "Facilitator of Change",
+          "description": "Eight years as a Minister in the Gujarat Government with exemplary work at the Union Ministry of Home and Cooperation."
+        },
+        "contributor": {
+          "title": "Contributor in Nation Building",
+          "description": "A firm believer in Indian culture and ethos with an unwavering focus on national development."
+        },
+        "organizationBuilder": {
+          "title": "Organization Builder",
+          "description": "Led the BJP for six years as National President, expanding it into the world's largest political party."
+        },
+        "sportsAdministrator": {
+          "title": "Sports Administrator",
+          "description": "Instrumental in taking cricket and chess in Gujarat to new heights with world-class infrastructure."
+        },
+        "cooperativePioneer": {
+          "title": "Cooperative Pioneer",
+          "description": "Brought the cooperative movement to the forefront of Gujarat's economy and national discourse."
+        }
+      }
+    },
+    "journey": {
+      "label": "Journey",
+      "milestones": {
+        "milestone1": {
+          "title": "Grassroots Leader",
+          "description": "Started at the polling booth level, organizing karyakartas and voter outreach.",
+          "highlights": [
+            "Built strong connect with local communities",
+            "Led award-winning voter awareness drives"
+          ]
+        },
+        "milestone2": {
+          "title": "Minister, Gujarat",
+          "description": "Served eight impactful years in the Gujarat cabinet, driving governance reforms.",
+          "highlights": [
+            "Modernized policing infrastructure",
+            "Accelerated cooperative institutions"
+          ]
+        },
+        "milestone3": {
+          "title": "National President, BJP",
+          "description": "Reimagined the party's organization, expanding it into the world's largest.",
+          "highlights": [
+            "Championed booth empowerment model",
+            "Crafted invincible election machine"
+          ]
+        },
+        "milestone4": {
+          "title": "Sports Visionary",
+          "description": "Elevated cricket and chess in Gujarat with professional infrastructure.",
+          "highlights": [
+            "World-class academy pipeline",
+            "Mentored next-gen sports administrators"
+          ]
+        },
+        "milestone5": {
+          "title": "Union Home Minister",
+          "description": "Led nationally significant decisions with a people-first mindset.",
+          "highlights": [
+            "Strengthened internal security grid",
+            "Brought cooperative ethos to the centre"
+          ]
+        },
+        "milestone6": {
+          "title": "Nation Builder",
+          "description": "Focused on empowerment, cooperative growth, and cultural renaissance.",
+          "highlights": [
+            "Driving mega cooperative reforms",
+            "Championing Indian ethos globally"
+          ]
+        }
+      }
     }
   },
   "profile": {

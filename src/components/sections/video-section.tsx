@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Play } from "lucide-react"
 import { Card, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { mockVideos, delay } from "@/lib/mock-data"
 import { getLocale, getTranslations } from "next-intl/server"
 
@@ -26,12 +26,11 @@ export async function VideoSection() {
   return (
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold">{tSection("title")}</h2>
-          <Link href={`/${locale}/videos`}>
-            <Button variant="outline">{tCommon("viewAll")}</Button>
-          </Link>
-        </div>
+        <SectionHeading 
+          title={tSection("title")} 
+          linkHref={`/${locale}/videos`}
+          viewAllText={tCommon("viewAll")}
+        />
         <div className="grid md:grid-cols-3 gap-6">
           {videos.map((video) => (
             <Card key={video.id} className="overflow-hidden hover:shadow-lg transition-shadow">

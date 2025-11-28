@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { Calendar as CalendarIcon } from "lucide-react"
 import { format } from "date-fns"
 import { enUS, hi as hiLocale } from "date-fns/locale"
@@ -24,7 +25,7 @@ export async function EventsCalendar() {
   return (
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
-        <h2 className="text-3xl font-bold mb-8 text-center">{t("title")}</h2>
+        <SectionHeading title={t("title")} />
         {upcomingEvents.length === 0 ? (
           <p className="text-center text-muted-foreground">{t("empty")}</p>
         ) : (

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { mockPhotos, delay } from "@/lib/mock-data"
 import { getLocale, getTranslations } from "next-intl/server"
 
@@ -25,12 +25,11 @@ export async function PhotoGallery() {
   return (
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold">{tSection("title")}</h2>
-          <Link href={`/${locale}/gallery`}>
-            <Button variant="outline">{tCommon("viewAll")}</Button>
-          </Link>
-        </div>
+        <SectionHeading 
+          title={tSection("title")} 
+          linkHref={`/${locale}/gallery`}
+          viewAllText={tCommon("viewAll")}
+        />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {photos.map((photo) => (
             <Link key={photo.id} href={`/${locale}/gallery`}>

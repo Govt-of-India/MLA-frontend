@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { SectionHeading } from "@/components/ui/section-heading"
 import { useToast } from "@/hooks/use-toast"
 import { Mail, Phone, User } from "lucide-react"
 
@@ -78,11 +79,9 @@ export function ContactForm() {
   return (
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container max-w-2xl">
+        <SectionHeading title={t("title")} className="mb-8" />
         <Card>
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">{t("title")}</CardTitle>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="pt-8">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">
