@@ -1,0 +1,9 @@
+# Ignore files that don't need to be deployed
+.env.local
+.env*.local
+node_modules
+.next
+.git
+.DS_Store
+*.log
+

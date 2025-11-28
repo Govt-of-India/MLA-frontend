@@ -77,13 +77,13 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               {slides[currentIndex].quote ? (
                 <blockquote className="relative">
                   <div className="absolute -top-4 -left-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
-                    {'\u201C'}
+                    &ldquo;
                   </div>
                   <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-800 leading-tight mb-4 relative z-10">
                     {slides[currentIndex].quote}
                   </p>
                   <div className="absolute -bottom-4 -right-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
-                    {'\u201D'}
+                    &rdquo;
                   </div>
                   <div className="mt-6 pt-6 border-t-2 border-saffron-400/30">
                     <p className="text-sm md:text-base text-saffron-700 font-medium tracking-wider uppercase">
@@ -94,25 +94,25 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               ) : slides[currentIndex].subtitle ? (
                 <div className="relative">
                   <div className="absolute -top-4 -left-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
-                    {'\u201C'}
+                    &ldquo;
                   </div>
                   <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-800 leading-tight mb-4 relative z-10">
                     {slides[currentIndex].subtitle}
                   </p>
                   <div className="absolute -bottom-4 -right-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
-                    {'\u201D'}
+                    &rdquo;
                   </div>
                 </div>
               ) : (
                 <div className="relative">
                   <div className="absolute -top-4 -left-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
-                    {'\u201C'}
+                    &ldquo;
                   </div>
                   <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-800 leading-tight mb-4 relative z-10">
                     Dedicated to serving the people
                   </p>
                   <div className="absolute -bottom-4 -right-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
-                    {'\u201D'}
+                    &rdquo;
                   </div>
                 </div>
               )}
@@ -125,37 +125,37 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               {slides[currentIndex].quote ? (
                 <blockquote className="relative">
                   <div className="absolute -top-2 -left-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
-                    {'\u201C'}
+                    &ldquo;
                   </div>
                   <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight relative z-10">
                     {slides[currentIndex].quote}
                   </p>
                   <div className="absolute -bottom-2 -right-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
-                    {'\u201D'}
+                    &rdquo;
                   </div>
                 </blockquote>
               ) : slides[currentIndex].subtitle ? (
                 <div className="relative">
                   <div className="absolute -top-2 -left-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
-                    {'\u201C'}
+                    &ldquo;
                   </div>
                   <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight relative z-10">
                     {slides[currentIndex].subtitle}
                   </p>
                   <div className="absolute -bottom-2 -right-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
-                    {'\u201D'}
+                    &rdquo;
                   </div>
                 </div>
               ) : (
                 <div className="relative">
                   <div className="absolute -top-2 -left-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
-                    {'\u201C'}
+                    &ldquo;
                   </div>
                   <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight relative z-10">
                     Dedicated to serving the people
                   </p>
                   <div className="absolute -bottom-2 -right-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
-                    {'\u201D'}
+                    &rdquo;
                   </div>
                 </div>
               )}
