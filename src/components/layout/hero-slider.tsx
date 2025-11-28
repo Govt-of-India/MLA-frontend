@@ -70,7 +70,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
             src={slides[currentIndex].imageUrl}
             alt={slides[currentIndex].title || "Hero slide"}
             fill
-            className="object-cover"
+            className="object-contain"
             priority
             sizes="100vw"
             quality={90}

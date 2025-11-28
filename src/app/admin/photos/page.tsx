@@ -1,38 +1,35 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Plus, Trash2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import Image from 'next/image'
-
-interface Photo {
-  id: string
-  titleEn: string
-  imageUrl: string
-  category?: string | null
-  featured: boolean
-}
+import { Photo } from '@/types'
 
 export default function PhotosPage() {
   const [photos, setPhotos] = useState<Photo[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
 
-  useEffect(() => {
-    fetchPhotos()
-  }, [])
-
-  const fetchPhotos = async () => {
+  const fetchPhotos = useCallback(async () => {
     try {
       // Try API first, fallback to mock data
       try {
         const response = await fetch('/api/photos')
         if (response.ok) {
           const data = await response.json()
-          setPhotos(data)
+          // Normalize dates from API (strings) to Date objects
+          const normalizedPhotos = data.map((item: any) => ({
+            ...item,
+            createdAt: new Date(item.createdAt),
+            updatedAt: new Date(item.updatedAt),
+          }))
+          setPhotos(normalizedPhotos as Photo[])
           setLoading(false)
           return
         }
@@ -52,7 +49,11 @@ export default function PhotosPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
+
+  useEffect(() => {
+    fetchPhotos()
+  }, [fetchPhotos])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this photo?')) {

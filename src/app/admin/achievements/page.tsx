@@ -1,36 +1,34 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Trash2, Trophy } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
-
-interface Achievement {
-  id: string
-  titleEn: string
-  year: number
-  category?: string | null
-}
+import { Achievement } from '@/types'
 
 export default function AchievementsPage() {
   const [achievements, setAchievements] = useState<Achievement[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
 
-  useEffect(() => {
-    fetchAchievements()
-  }, [])
-
-  const fetchAchievements = async () => {
+  const fetchAchievements = useCallback(async () => {
     try {
       // Try API first, fallback to mock data
       try {
         const response = await fetch('/api/achievements')
         if (response.ok) {
           const data = await response.json()
-          setAchievements(data)
+          // Normalize dates from API (strings) to Date objects
+          const normalizedAchievements = data.map((item: any) => ({
+            ...item,
+            createdAt: new Date(item.createdAt),
+            updatedAt: new Date(item.updatedAt),
+          }))
+          setAchievements(normalizedAchievements as Achievement[])
           setLoading(false)
           return
         }
@@ -50,7 +48,11 @@ export default function AchievementsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
+
+  useEffect(() => {
+    fetchAchievements()
+  }, [fetchAchievements])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this achievement?')) {

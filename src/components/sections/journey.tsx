@@ -126,12 +126,6 @@ export function JourneySection() {
                         sizes="(max-width: 768px) 280px, (max-width: 1024px) 340px, 420px"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                      <div className="absolute bottom-4 left-6 right-6 flex items-center gap-3">
-                        <span className="text-3xl font-black text-white drop-shadow-xl">
-                          {milestone.year}
-                        </span>
-                        <div className="h-px flex-1 bg-white/50" />
-                      </div>
                     </div>
                     <div className="p-6">
                       <div className="flex items-center gap-3 mb-3">

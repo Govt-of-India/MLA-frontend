@@ -1,38 +1,37 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Trash2, Calendar } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import { format } from 'date-fns'
-
-interface Event {
-  id: string
-  titleEn: string
-  date: string
-  location?: string | null
-  status: string
-}
+import { Event } from '@/types'
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
 
-  useEffect(() => {
-    fetchEvents()
-  }, [])
-
-  const fetchEvents = async () => {
+  const fetchEvents = useCallback(async () => {
     try {
       // Try API first, fallback to mock data
       try {
         const response = await fetch('/api/events')
         if (response.ok) {
           const data = await response.json()
-          setEvents(data)
+          // Normalize dates from API (strings) to Date objects
+          const normalizedEvents = data.map((event: any) => ({
+            ...event,
+            date: new Date(event.date),
+            createdAt: new Date(event.createdAt),
+            updatedAt: new Date(event.updatedAt),
+            publishedAt: event.publishedAt ? new Date(event.publishedAt) : null,
+          }))
+          setEvents(normalizedEvents as Event[])
           setLoading(false)
           return
         }
@@ -52,7 +51,11 @@ export default function EventsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
+
+  useEffect(() => {
+    fetchEvents()
+  }, [fetchEvents])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this event?')) {
@@ -120,7 +123,7 @@ export default function EventsPage() {
                   <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
                     <div className="flex items-center space-x-1">
                       <Calendar className="h-4 w-4" />
-                      <span>{format(new Date(event.date), 'PPP')}</span>
+                      <span>{format(event.date, 'PPP')}</span>
                     </div>
                     {event.location && <span>{event.location}</span>}
                     <span

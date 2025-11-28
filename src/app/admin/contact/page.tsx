@@ -3,6 +3,8 @@ import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { format } from 'date-fns'
+
+export const dynamic = 'force-dynamic'
 import { Mail, Phone, MessageSquare } from 'lucide-react'
 
 // Mock submissions (in production, fetch from database)

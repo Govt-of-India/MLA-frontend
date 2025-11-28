@@ -1,38 +1,35 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Trash2, Play } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
 import Image from 'next/image'
-
-interface Video {
-  id: string
-  titleEn: string
-  videoUrl: string
-  thumbnailUrl?: string | null
-  category?: string | null
-}
+import { Video } from '@/types'
 
 export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
 
-  useEffect(() => {
-    fetchVideos()
-  }, [])
-
-  const fetchVideos = async () => {
+  const fetchVideos = useCallback(async () => {
     try {
       // Try API first, fallback to mock data
       try {
         const response = await fetch('/api/videos')
         if (response.ok) {
           const data = await response.json()
-          setVideos(data)
+          // Normalize dates from API (strings) to Date objects
+          const normalizedVideos = data.map((item: any) => ({
+            ...item,
+            createdAt: new Date(item.createdAt),
+            updatedAt: new Date(item.updatedAt),
+          }))
+          setVideos(normalizedVideos as Video[])
           setLoading(false)
           return
         }
@@ -52,7 +49,11 @@ export default function VideosPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
+
+  useEffect(() => {
+    fetchVideos()
+  }, [fetchVideos])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this video?')) {

@@ -1,37 +1,35 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+export const dynamic = 'force-dynamic'
+
+import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Edit, Trash2 } from 'lucide-react'
 import { useToast } from '@/hooks/use-toast'
-
-interface NewsItem {
-  id: string
-  titleEn: string
-  slug: string
-  published: boolean
-  createdAt: string
-}
+import { News } from '@/types'
 
 export default function NewsPage() {
-  const [news, setNews] = useState<NewsItem[]>([])
+  const [news, setNews] = useState<News[]>([])
   const [loading, setLoading] = useState(true)
   const { toast } = useToast()
 
-  useEffect(() => {
-    fetchNews()
-  }, [])
-
-  const fetchNews = async () => {
+  const fetchNews = useCallback(async () => {
     try {
       // Try API first, fallback to mock data
       try {
         const response = await fetch('/api/news')
         if (response.ok) {
           const data = await response.json()
-          setNews(data)
+          // Normalize dates from API (strings) to Date objects
+          const normalizedNews = data.map((item: any) => ({
+            ...item,
+            createdAt: new Date(item.createdAt),
+            updatedAt: new Date(item.updatedAt),
+            publishedAt: item.publishedAt ? new Date(item.publishedAt) : null,
+          }))
+          setNews(normalizedNews as News[])
           setLoading(false)
           return
         }
@@ -51,7 +49,11 @@ export default function NewsPage() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [toast])
+
+  useEffect(() => {
+    fetchNews()
+  }, [fetchNews])
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this news item?')) {

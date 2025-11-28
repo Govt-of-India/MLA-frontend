@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Newspaper, Image, Video, Calendar, Trophy, MessageSquare } from 'lucide-react'
 import { mockNews, mockPhotos, mockVideos, mockEvents, mockAchievements } from '@/lib/mock-data'
 
+export const dynamic = 'force-dynamic'
+
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
 
