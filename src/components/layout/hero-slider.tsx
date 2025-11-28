@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
 
 interface Slide {
@@ -11,6 +9,7 @@ interface Slide {
   imageUrl: string
   title?: string
   subtitle?: string
+  quote?: string
 }
 
 interface HeroSliderProps {
@@ -47,13 +46,6 @@ export function HeroSlider({ slides }: HeroSliderProps) {
     setCurrentIndex(index)
   }
 
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length)
-  }
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % slides.length)
-  }
 
   return (
     <div className="relative h-[600px] w-full overflow-hidden">
@@ -64,74 +56,129 @@ export function HeroSlider({ slides }: HeroSliderProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
-          className="absolute inset-0"
+          className="absolute inset-0 flex"
         >
-          <Image
-            src={slides[currentIndex].imageUrl}
-            alt={slides[currentIndex].title || "Hero slide"}
-            fill
-            className="object-contain"
-            priority
-            sizes="100vw"
-            quality={90}
-          />
-          <div className="absolute inset-0 bg-black/40" />
-          {(slides[currentIndex].title || slides[currentIndex].subtitle) && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center text-white px-4">
-                {slides[currentIndex].title && (
-                  <h1 className="text-4xl md:text-6xl font-bold mb-4">
-                    {slides[currentIndex].title}
-                  </h1>
-                )}
-                {slides[currentIndex].subtitle && (
-                  <p className="text-xl md:text-2xl">
+          {/* Image Section - Adaptive Width */}
+          <div className="relative w-full md:w-2/3 h-full overflow-hidden">
+            <Image
+              src={slides[currentIndex].imageUrl}
+              alt={slides[currentIndex].title || "Hero slide"}
+              fill
+              className="object-cover object-left"
+              priority
+              sizes="(max-width: 768px) 100vw, 66vw"
+              quality={90}
+            />
+          </div>
+
+          {/* Quote Section - Right Side with Enhanced Saffron Background */}
+          <div className="hidden md:flex relative w-1/3 h-full bg-gradient-to-br from-saffron-300 via-saffron-200 to-saffron-100 items-center justify-center p-8 md:p-12 lg:p-16">
+            <div className="text-center max-w-xl w-full">
+              {slides[currentIndex].quote ? (
+                <blockquote className="relative">
+                  <div className="absolute -top-4 -left-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-800 leading-tight mb-4 relative z-10">
+                    {slides[currentIndex].quote}
+                  </p>
+                  <div className="absolute -bottom-4 -right-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <div className="mt-6 pt-6 border-t-2 border-saffron-400/30">
+                    <p className="text-sm md:text-base text-saffron-700 font-medium tracking-wider uppercase">
+                      — Manish Rawat
+                    </p>
+                  </div>
+                </blockquote>
+              ) : slides[currentIndex].subtitle ? (
+                <div className="relative">
+                  <div className="absolute -top-4 -left-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-800 leading-tight mb-4 relative z-10">
                     {slides[currentIndex].subtitle}
                   </p>
-                )}
-              </div>
+                  <div className="absolute -bottom-4 -right-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                </div>
+              ) : (
+                <div className="relative">
+                  <div className="absolute -top-4 -left-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-800 leading-tight mb-4 relative z-10">
+                    Dedicated to serving the people
+                  </p>
+                  <div className="absolute -bottom-4 -right-4 text-saffron-600 text-6xl md:text-7xl lg:text-8xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                </div>
+              )}
             </div>
-          )}
+          </div>
+          
+          {/* Mobile: Show quote below image */}
+          <div className="md:hidden absolute bottom-0 left-0 right-0 bg-gradient-to-br from-saffron-300 via-saffron-200 to-saffron-100 p-6">
+            <div className="text-center">
+              {slides[currentIndex].quote ? (
+                <blockquote className="relative">
+                  <div className="absolute -top-2 -left-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight relative z-10">
+                    {slides[currentIndex].quote}
+                  </p>
+                  <div className="absolute -bottom-2 -right-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                </blockquote>
+              ) : slides[currentIndex].subtitle ? (
+                <div className="relative">
+                  <div className="absolute -top-2 -left-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight relative z-10">
+                    {slides[currentIndex].subtitle}
+                  </p>
+                  <div className="absolute -bottom-2 -right-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                </div>
+              ) : (
+                <div className="relative">
+                  <div className="absolute -top-2 -left-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                  <p className="text-lg md:text-xl font-bold text-slate-800 leading-tight relative z-10">
+                    Dedicated to serving the people
+                  </p>
+                  <div className="absolute -bottom-2 -right-2 text-saffron-600 text-4xl font-serif leading-none opacity-20">
+                    "
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </motion.div>
       </AnimatePresence>
 
       {slides.length > 1 && (
-        <>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
-            onClick={goToPrevious}
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
-            onClick={goToNext}
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </Button>
-
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-            {slides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                className={`h-2 rounded-full transition-all ${
-                  index === currentIndex
-                    ? "w-8 bg-white"
-                    : "w-2 bg-white/50 hover:bg-white/75"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-        </>
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === currentIndex
+                  ? "w-8 bg-saffron-600"
+                  : "w-2 bg-white/70 hover:bg-white/90"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       )}
     </div>
   )

@@ -5,8 +5,6 @@ import { useTranslations } from "next-intl"
 import { Card, CardContent } from "@/components/ui/card"
 import { Award, MapPin, Calendar } from "lucide-react"
 
-const ELECTED_YEAR = 2020
-
 export function MLAProfile() {
   const t = useTranslations("profile")
 
@@ -43,7 +41,7 @@ export function MLAProfile() {
                     </div>
                     <div className="flex items-center space-x-2">
                       <Calendar className="h-5 w-5" />
-                      <span>{t("elected", { year: ELECTED_YEAR })}</span>
+                      <span>{t("elected")}</span>
                     </div>
                   </div>
                   <p className="text-muted-foreground">{t("description")}</p>

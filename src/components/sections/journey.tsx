@@ -81,10 +81,6 @@ export function JourneySection() {
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
               Milestones of Determination
             </h2>
-            <p className="text-muted-foreground mt-2 max-w-xl">
-              Scroll through the years to explore the transformational roles and people-first
-              leadership milestones. Click on a year to jump directly to that phase.
-            </p>
           </div>
           <div className="flex flex-wrap gap-2">
             {journeyMilestones.map((milestone, index) => (

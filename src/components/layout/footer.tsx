@@ -19,10 +19,10 @@ export function Footer() {
   ]
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Facebook, href: "https://www.facebook.com/manishrawatmlabjp", label: "Facebook", target: "_blank", rel: "noopener noreferrer" },
+    { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter", target: "_blank", rel: "noopener noreferrer" },
+    { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram", target: "_blank", rel: "noopener noreferrer" },
+    { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube", target: "_blank", rel: "noopener noreferrer" },
   ]
 
   return (
@@ -69,6 +69,8 @@ export function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
+                    target={social.target}
+                    rel={social.rel}
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     <Icon className="h-5 w-5" />
@@ -81,9 +83,9 @@ export function Footer() {
           <div>
             <h4 className="text-sm font-semibold mb-4">{tf("contact")}</h4>
             <p className="text-sm text-muted-foreground">
-              {tf("email")}: contact@mla.com
+              {tf("email")}: <a href="mailto:manishrawatmla@gmail.com" className="hover:text-primary transition-colors">manishrawatmla@gmail.com</a>
               <br />
-              {tf("phone")}: +91 1234567890
+              {tf("phone")}: <a href="tel:+91941577090" className="hover:text-primary transition-colors">+91 94157 7090</a>
             </p>
           </div>
         </div>
