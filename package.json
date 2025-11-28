@@ -7,6 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "powershell -Command \"if (Test-Path .next) { Remove-Item -Recurse -Force .next }\"",
+    "clean:build": "npm run clean && npm run build",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts"
