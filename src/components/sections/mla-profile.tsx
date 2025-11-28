@@ -9,7 +9,7 @@ export function MLAProfile() {
   const t = useTranslations("profile")
 
   return (
-    <section className="py-16">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <div className="max-w-4xl mx-auto">
           <Card>

@@ -8,7 +8,7 @@ export function MissionVision() {
   const t = useTranslations('home')
 
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <div className="grid md:grid-cols-2 gap-8">
           <Card>

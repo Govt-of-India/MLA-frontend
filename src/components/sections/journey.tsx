@@ -73,7 +73,7 @@ export function JourneySection() {
   }
 
   return (
-    <section className="py-16 bg-white dark:bg-slate-950">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-8">
           <div>

@@ -21,7 +21,7 @@ export async function DevelopmentProjects() {
   const t = await getTranslations("sections.projects")
 
   return (
-    <section className="py-16">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <h2 className="text-3xl font-bold mb-8 text-center">{t("title")}</h2>
         <div className="grid md:grid-cols-3 gap-6">

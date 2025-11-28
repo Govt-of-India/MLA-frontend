@@ -35,7 +35,7 @@ const impactHighlights = [
 
 export function ImpactSection() {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-orange-50 dark:from-slate-900 dark:to-slate-950">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <div className="grid gap-12 lg:grid-cols-[360px_1fr] items-center">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-6">

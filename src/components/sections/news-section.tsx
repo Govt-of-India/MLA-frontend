@@ -26,7 +26,7 @@ export async function NewsSection() {
   const dateLocale = locale === "hi" ? hiLocale : enUS
 
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold">{tSection("title")}</h2>

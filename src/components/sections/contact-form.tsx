@@ -76,7 +76,7 @@ export function ContactForm() {
   }
 
   return (
-    <section className="py-16 bg-muted/50">
+    <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container max-w-2xl">
         <Card>
           <CardHeader>
