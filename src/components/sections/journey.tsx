@@ -112,16 +112,17 @@ export function JourneySection() {
                   }}
                   className="snap-center min-w-[280px] sm:min-w-[340px] lg:min-w-[420px] flex-shrink-0"
                 >
-                  <div className="h-full rounded-3xl border-2 border-saffron-200 dark:border-saffron-800 bg-white dark:bg-slate-900 overflow-hidden shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-500 hover:-translate-y-1 hover:border-saffron-400 dark:hover:border-saffron-600 hover:shadow-[0_25px_70px_rgba(255,122,89,0.25)]">
-                    <div className="relative h-64 md:h-80 w-full">
+                  <div className="h-full rounded-3xl border-2 border-saffron-200 dark:border-saffron-800 bg-white dark:bg-slate-900 overflow-hidden shadow-[0_20px_60px_rgba(15,23,42,0.12)] transition-all duration-500 hover:-translate-y-1 hover:border-saffron-400 dark:hover:border-saffron-600 hover:shadow-[0_25px_70px_rgba(255,122,89,0.25)] hover:ring-4 hover:ring-saffron-200/50 dark:hover:ring-saffron-800/50">
+                    <div className="relative h-64 md:h-80 w-full overflow-hidden group">
                       <Image
                         src={milestone.image}
                         alt={milestone.title}
                         fill
-                        className="object-contain"
+                        className="object-contain transition-transform duration-500 group-hover:scale-105"
                         sizes="(max-width: 768px) 280px, (max-width: 1024px) 340px, 420px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/40 group-hover:via-black/10 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-saffron-200/0 group-hover:bg-saffron-200/10 dark:group-hover:bg-saffron-800/10 transition-all duration-500" />
                     </div>
                     <div className="p-6">
                       <div className="flex items-center gap-3 mb-3">

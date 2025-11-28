@@ -34,16 +34,17 @@ export async function PhotoGallery() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {photos.map((photo) => (
             <Link key={photo.id} href={`/${locale}/gallery`}>
-              <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-                <div className="relative aspect-square">
+              <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer border-2 border-transparent hover:border-saffron-300 dark:hover:border-saffron-700 hover:ring-2 hover:ring-saffron-200/50 dark:hover:ring-saffron-800/50 group">
+                <div className="relative aspect-square overflow-hidden">
                   <Image
                     src={photo.imageUrl}
                     alt={pickTitle(photo.titleHi, photo.titleEn)}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                     loading="lazy"
                     sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                   />
+                  <div className="absolute inset-0 bg-saffron-200/0 group-hover:bg-saffron-200/20 dark:group-hover:bg-saffron-800/20 transition-all duration-500" />
                 </div>
               </Card>
             </Link>
