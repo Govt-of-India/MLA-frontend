@@ -27,7 +27,7 @@ export async function DevelopmentProjects() {
         <SectionHeading title={t("title")} />
         <div className="grid md:grid-cols-3 gap-6">
           {PROJECTS.map((project) => (
-            <Card key={project.key}>
+            <Card key={project.key} className="border-2 border-saffron-300 dark:border-saffron-700 transition-all duration-300 hover:shadow-xl hover:shadow-saffron-200/50 dark:hover:shadow-saffron-800/50">
               <CardHeader>
                 <div className="flex items-center space-x-2">
                   <Hammer className="h-5 w-5 text-primary" />

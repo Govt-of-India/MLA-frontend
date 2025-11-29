@@ -28,7 +28,7 @@ export async function Achievements() {
         <SectionHeading title={t("title")} />
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {achievements.map((achievement) => (
-            <Card key={achievement.id}>
+            <Card key={achievement.id} className="border-2 border-saffron-300 dark:border-saffron-700 transition-all duration-300 hover:shadow-xl hover:shadow-saffron-200/50 dark:hover:shadow-saffron-800/50">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg">

@@ -61,7 +61,7 @@ export function Footer() {
 
           <div>
             <h4 className="text-sm font-semibold mb-4">{tf("connect")}</h4>
-            <div className="flex space-x-4">
+            <div className="flex space-x-3">
               {socialLinks.map((social) => {
                 const Icon = social.icon
                 return (
@@ -71,7 +71,7 @@ export function Footer() {
                     aria-label={social.label}
                     target={social.target}
                     rel={social.rel}
-                    className="text-muted-foreground hover:text-primary transition-colors"
+                    className="h-10 w-10 rounded-full bg-[#FF7A59] flex items-center justify-center text-white hover:bg-[#FF7A59]/90 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg"
                   >
                     <Icon className="h-5 w-5" />
                   </a>
