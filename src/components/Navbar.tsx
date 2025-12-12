@@ -132,7 +132,7 @@ export function Navbar() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="h-9 px-3 rounded-lg text-white hover:bg-white/20 flex items-center gap-2 font-medium"
+                  className="h-9 px-3 rounded-lg text-white border border-white/30 bg-white/10 hover:bg-white/25 focus-visible:ring-white/50 flex items-center gap-2 font-medium"
                   aria-label={t("languages.label")}
                 >
                   <span className="text-sm uppercase">{currentLanguage.code}</span>

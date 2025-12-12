@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
+import { OptimizedImage } from "@/components/ui/optimized-image"
 
 interface Slide {
   id: string
@@ -60,14 +60,14 @@ export function HeroSlider({ slides }: HeroSliderProps) {
         >
           {/* Image Section - Adaptive Width */}
           <div className="relative w-full md:w-2/3 h-full overflow-hidden">
-            <Image
+            <OptimizedImage
               src={slides[currentIndex].imageUrl}
               alt={slides[currentIndex].title || "Hero slide"}
               fill
               className="object-cover object-left"
-              priority
-              sizes="(max-width: 768px) 100vw, 66vw"
-              quality={90}
+              priority={currentIndex === 0}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 66vw"
+              quality={85}
             />
           </div>
 
