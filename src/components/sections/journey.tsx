@@ -44,20 +44,20 @@ export function JourneySection() {
         <div className="relative mb-8">
           <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
             <div className="flex gap-2 sm:gap-3 justify-start sm:justify-center min-w-max sm:min-w-0 py-1">
-              {journeyMilestones.map((milestone, index) => (
-                <button
-                  key={milestone.year}
-                  type="button"
-                  onClick={() => handleSelectYear(index)}
+          {journeyMilestones.map((milestone, index) => (
+            <button
+              key={milestone.year}
+              type="button"
+              onClick={() => handleSelectYear(index)}
                   className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 ${
-                    activeIndex === index
-                      ? "bg-[#FF7A59] border-[#FF7A59] text-white shadow-lg shadow-[#FF7A59]/40"
+                activeIndex === index
+                  ? "bg-[#FF7A59] border-[#FF7A59] text-white shadow-lg shadow-[#FF7A59]/40"
                       : "border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-[#FF7A59]/50 hover:text-[#FF7A59] bg-white dark:bg-slate-800"
-                  }`}
-                >
-                  {milestone.year}
-                </button>
-              ))}
+              }`}
+            >
+              {milestone.year}
+            </button>
+          ))}
             </div>
           </div>
           {/* Fade indicators for scroll on mobile */}

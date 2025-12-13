@@ -1,9 +1,10 @@
 "use client"
 
-import { ReactNode } from "react"
+import { ReactNode, useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useTranslations } from "next-intl"
 import { ArrowRight } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 interface SectionHeadingProps {
   title: string
@@ -20,6 +21,33 @@ export function SectionHeading({
   viewAllText,
   className = "" 
 }: SectionHeadingProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [isInView, setIsInView] = useState(false)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (prefersReducedMotion) {
+      setIsInView(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+          observer.unobserve(element)
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+    )
+
+    observer.observe(element)
+    return () => observer.unobserve(element)
+  }, [])
+
   let finalLinkText = linkText
   try {
     const tCommon = useTranslations("common")
@@ -34,7 +62,14 @@ export function SectionHeading({
   }
 
   return (
-    <div className={`flex items-center gap-4 mb-12 ${className}`}>
+    <div 
+      ref={ref}
+      className={cn(
+        "flex items-center gap-4 mb-12 transition-all duration-700",
+        isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+        className
+      )}
+    >
       {/* Left: Saffron pill with title */}
       <div className="relative flex-shrink-0">
         <div className="relative px-6 py-3 rounded-full bg-gradient-to-r from-saffron-500 to-saffron-600 shadow-lg shadow-saffron-500/30 hover:shadow-saffron-500/40 transition-all duration-300 hover:scale-105">

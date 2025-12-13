@@ -79,11 +79,11 @@ export function Navbar() {
   const currentLanguage = languages.find((lang) => lang.code === locale) || languages[0]
 
   const socialLinks = [
-    { icon: Facebook, href: "https://www.facebook.com/manishrawatmlabjp", label: "Facebook" },
-    { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter" },
-    { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram" },
-    { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube" },
-    { icon: MessageCircle, href: "https://wa.me/91941577090", label: "WhatsApp" },
+    { icon: Facebook, href: "https://www.facebook.com/manishrawatmlabjp", label: "Facebook", color: "#1877F2" },
+    { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter", color: "#1DA1F2" },
+    { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram", color: "#E4405F" },
+    { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube", color: "#FF0000" },
+    { icon: MessageCircle, href: "https://wa.me/91941577090", label: "WhatsApp", color: "#25D366" },
   ]
 
   const contactInfo = {
@@ -341,7 +341,7 @@ export function Navbar() {
                   <h3 className="text-white/70 text-xs font-semibold mb-3 uppercase tracking-wider px-2">
                     {t("follow")}
                   </h3>
-                  <div className="flex flex-wrap gap-2 px-2">
+                  <div className="flex flex-wrap gap-3 px-2">
                     {socialLinks.map((social) => {
                       const Icon = social.icon
                       return (
@@ -350,11 +350,17 @@ export function Navbar() {
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="h-11 w-11 rounded-full bg-white/15 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 hover:scale-105 transition-all duration-200"
+                          className="group relative h-12 w-12 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white overflow-hidden transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-lg"
                           aria-label={social.label}
                           onClick={() => setMobileMenuOpen(false)}
+                          style={{ ['--brand-color' as string]: social.color }}
                         >
-                          <Icon className="h-5 w-5" />
+                          {/* Animated background fill */}
+                          <span 
+                            className="absolute inset-0 scale-0 group-hover:scale-100 rounded-full transition-transform duration-300 ease-out"
+                            style={{ backgroundColor: social.color }}
+                          />
+                          <Icon className="h-5 w-5 relative z-10 transition-transform duration-300 group-hover:scale-110" />
                         </a>
                       )
                     })}

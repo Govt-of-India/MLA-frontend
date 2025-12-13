@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
-import { Facebook, Twitter, Instagram, Youtube } from "lucide-react"
+import { Facebook, Twitter, Instagram, Youtube, MessageCircle } from "lucide-react"
 
 // Social link colors for hover effects
 const socialColors = {
@@ -11,6 +11,7 @@ const socialColors = {
   Twitter: { bg: "#1DA1F2", hover: "hover:bg-[#1DA1F2]" },
   Instagram: { bg: "#E4405F", hover: "hover:bg-[#E4405F]" },
   YouTube: { bg: "#FF0000", hover: "hover:bg-[#FF0000]" },
+  WhatsApp: { bg: "#25D366", hover: "hover:bg-[#25D366]" },
 }
 
 export function Footer() {
@@ -31,6 +32,7 @@ export function Footer() {
     { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter", color: socialColors.Twitter },
     { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram", color: socialColors.Instagram },
     { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube", color: socialColors.YouTube },
+    { icon: MessageCircle, href: "https://wa.me/919415777090", label: "WhatsApp", color: socialColors.WhatsApp },
   ]
 
   return (

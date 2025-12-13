@@ -1,6 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
+import { ScrollAnimation } from "@/components/ui/scroll-animation"
 
 export function ImpactSection() {
   const t = useTranslations("sections.impact")
@@ -17,7 +18,7 @@ export function ImpactSection() {
     <section className="py-12 sm:py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white overflow-hidden">
       <div className="container px-4 sm:px-6 lg:px-8">
         <div className="grid gap-8 sm:gap-12 lg:grid-cols-[360px_1fr] items-center">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-4 sm:space-y-6">
+          <ScrollAnimation animation="scale-in" className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-4 sm:space-y-6">
             <div className="relative mx-auto lg:mx-0">
               <div className="absolute inset-0 blur-3xl bg-[#FF7A59]/30 rounded-full" />
               <div className="relative h-48 w-48 sm:h-64 sm:w-64 md:h-72 md:w-72 rounded-full border-4 border-white shadow-[0_20px_70px_rgba(255,122,89,0.35)] bg-gradient-to-b from-[#FFAF7B] to-[#FF7A59] flex flex-col items-center justify-center text-white px-4">
@@ -29,14 +30,16 @@ export function ImpactSection() {
             <p className="text-muted-foreground max-w-sm leading-relaxed text-sm sm:text-base px-2 sm:px-0">
               {t("description")}
             </p>
-          </div>
+          </ScrollAnimation>
 
           <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2">
-            {highlights.map((highlight) => {
+            {highlights.map((highlight, index) => {
               const title = t(`highlights.${highlight.key}.title`)
               return (
-                <div
+                <ScrollAnimation
                   key={highlight.key}
+                  animation="fade-up"
+                  delay={index + 1}
                   className="group relative rounded-2xl p-px bg-gradient-to-br from-transparent via-transparent to-transparent hover:from-[#FF7A59]/40 hover:to-white/30 transition-all duration-500"
                 >
                   <div className="relative h-full rounded-2xl border-2 border-saffron-400 dark:border-saffron-600 bg-white/90 dark:bg-slate-900/80 px-4 sm:px-6 py-4 sm:py-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)]">
@@ -53,7 +56,7 @@ export function ImpactSection() {
                     </p>
                     <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#FF7A59]/80 transition-all duration-500 pointer-events-none" />
                   </div>
-                </div>
+                </ScrollAnimation>
               )
             })}
           </div>

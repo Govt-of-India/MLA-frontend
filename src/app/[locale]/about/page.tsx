@@ -292,7 +292,7 @@ export default async function AboutPage() {
           >
             {locale === "hi" ? "संपर्क करें" : "Contact Us"}
           </a>
-        </div>
+      </div>
       </section>
     </div>
   )

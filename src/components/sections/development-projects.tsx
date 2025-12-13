@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { Hammer } from "lucide-react"
 import { getTranslations } from "next-intl/server"
+import { AnimatedGrid } from "@/components/ui/animated-section"
 
 const PROJECTS = [
   { key: "road", status: "completed" },
@@ -25,7 +26,11 @@ export async function DevelopmentProjects() {
     <section className="py-16 bg-gradient-to-br from-saffron-50 via-saffron-100/50 to-white">
       <div className="container">
         <SectionHeading title={t("title")} />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <AnimatedGrid 
+          animation="fade-up" 
+          staggerDelay={100}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+        >
           {PROJECTS.map((project) => (
             <Card key={project.key} className="h-full rounded-xl border-2 border-saffron-300 dark:border-saffron-700 transition-all duration-300 hover:shadow-xl hover:shadow-saffron-200/50 dark:hover:shadow-saffron-800/50 hover:-translate-y-1">
               <CardHeader className="p-4 sm:p-6 pb-2 sm:pb-3">
@@ -48,7 +53,7 @@ export async function DevelopmentProjects() {
               </CardContent>
             </Card>
           ))}
-        </div>
+        </AnimatedGrid>
       </div>
     </section>
   )
