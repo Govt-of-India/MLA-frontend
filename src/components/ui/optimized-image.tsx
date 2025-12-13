@@ -12,6 +12,8 @@ interface OptimizedImageProps extends Omit<ImageProps, "placeholder" | "blurData
   enableBlur?: boolean
   /** Custom blur data URL */
   customBlurDataURL?: string
+  /** Show skeleton loader while image loads (default: true) */
+  showSkeleton?: boolean
 }
 
 /**
@@ -19,6 +21,7 @@ interface OptimizedImageProps extends Omit<ImageProps, "placeholder" | "blurData
  * 
  * Features:
  * - Automatic blur placeholder for better perceived loading
+ * - Skeleton loading animation while image loads
  * - WebP/AVIF format with fallbacks (configured in next.config.js)
  * - Responsive srcset generation
  * - Fade-in animation on load
@@ -26,6 +29,7 @@ interface OptimizedImageProps extends Omit<ImageProps, "placeholder" | "blurData
 export function OptimizedImage({
   enableBlur = true,
   customBlurDataURL,
+  showSkeleton = true,
   className = "",
   onLoad,
   ...props
@@ -38,13 +42,19 @@ export function OptimizedImage({
   }
 
   return (
-    <Image
-      {...props}
-      className={`${className} transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-      placeholder={enableBlur ? "blur" : "empty"}
-      blurDataURL={customBlurDataURL || BLUR_DATA_URL}
-      onLoad={handleLoad}
-    />
+    <>
+      {/* Skeleton loader with shimmer effect - shows while image is loading */}
+      {showSkeleton && !isLoaded && (
+        <div className="absolute inset-0 bg-gray-200 dark:bg-gray-700 animate-shimmer" />
+      )}
+      <Image
+        {...props}
+        className={`${className} transition-opacity duration-300 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        placeholder={enableBlur ? "blur" : "empty"}
+        blurDataURL={customBlurDataURL || BLUR_DATA_URL}
+        onLoad={handleLoad}
+      />
+    </>
   )
 }
 

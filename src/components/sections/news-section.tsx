@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { SectionHeading } from "@/components/ui/section-heading"
 import { mockNews, delay } from "@/lib/mock-data"
 import { getLocale, getTranslations } from "next-intl/server"
+import { truncateText } from "@/lib/utils"
 
 export async function NewsSection() {
   const [locale, tSection, tCommon] = await Promise.all([
@@ -55,10 +56,10 @@ export async function NewsSection() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3 mb-2">
-                    {pickText(item.contentHi, item.contentEn).substring(0, 100)}...
+                  <p className="text-sm text-muted-foreground line-clamp-3 mb-3 leading-relaxed">
+                    {truncateText(pickText(item.contentHi, item.contentEn), 120)}
                   </p>
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-xs text-muted-foreground font-medium">
                     {format(new Date(item.createdAt), "MMM dd, yyyy", { locale: dateLocale })}
                   </span>
                 </CardContent>

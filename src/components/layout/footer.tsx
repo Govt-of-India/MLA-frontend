@@ -5,6 +5,14 @@ import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 import { Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 
+// Social link colors for hover effects
+const socialColors = {
+  Facebook: { bg: "#1877F2", hover: "hover:bg-[#1877F2]" },
+  Twitter: { bg: "#1DA1F2", hover: "hover:bg-[#1DA1F2]" },
+  Instagram: { bg: "#E4405F", hover: "hover:bg-[#E4405F]" },
+  YouTube: { bg: "#FF0000", hover: "hover:bg-[#FF0000]" },
+}
+
 export function Footer() {
   const locale = useLocale()
   const t = useTranslations("nav")
@@ -19,26 +27,26 @@ export function Footer() {
   ]
 
   const socialLinks = [
-    { icon: Facebook, href: "https://www.facebook.com/manishrawatmlabjp", label: "Facebook", target: "_blank", rel: "noopener noreferrer" },
-    { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter", target: "_blank", rel: "noopener noreferrer" },
-    { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram", target: "_blank", rel: "noopener noreferrer" },
-    { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube", target: "_blank", rel: "noopener noreferrer" },
+    { icon: Facebook, href: "https://www.facebook.com/manishrawatmlabjp", label: "Facebook", color: socialColors.Facebook },
+    { icon: Twitter, href: "https://x.com/manishrawatmla", label: "Twitter", color: socialColors.Twitter },
+    { icon: Instagram, href: "https://instagram.com/manish_rawat_mla", label: "Instagram", color: socialColors.Instagram },
+    { icon: Youtube, href: "https://www.youtube.com/@manishrawatmla", label: "YouTube", color: socialColors.YouTube },
   ]
 
   return (
-    <footer className="border-t bg-background">
+    <footer className="border-t bg-gradient-to-b from-background to-slate-50 dark:to-slate-900">
       <div className="container py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <Link href={`/${locale}`} className="flex items-center space-x-2 mb-4">
+            <Link href={`/${locale}`} className="flex items-center space-x-2 mb-4 group">
               <Image
                 src="/images/bjp-icon.png"
                 alt="BJP Logo"
                 width={24}
                 height={24}
-                className="h-6 w-6 object-contain"
+                className="h-6 w-6 object-contain group-hover:scale-110 transition-transform"
               />
-              <h3 className="text-lg font-semibold">{tf("brand")}</h3>
+              <h3 className="text-lg font-semibold group-hover:text-[#FF7A59] transition-colors">{tf("brand")}</h3>
             </Link>
             <p className="text-sm text-muted-foreground">{tf("description")}</p>
           </div>
@@ -50,7 +58,7 @@ export function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className="text-sm text-muted-foreground hover:text-[#FF7A59] hover:translate-x-1 inline-block transition-all duration-200"
                   >
                     {item.label}
                   </Link>
@@ -69,11 +77,17 @@ export function Footer() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    target={social.target}
-                    rel={social.rel}
-                    className="h-10 w-10 rounded-full bg-[#FF7A59] flex items-center justify-center text-white hover:bg-[#FF7A59]/90 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative h-11 w-11 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-white transition-all duration-300 shadow-md hover:shadow-xl hover:scale-110 hover:-translate-y-1 overflow-hidden"
+                    style={{ ['--hover-bg' as string]: social.color.bg }}
                   >
-                    <Icon className="h-5 w-5" />
+                    {/* Animated background */}
+                    <span 
+                      className="absolute inset-0 scale-0 group-hover:scale-100 rounded-full transition-transform duration-300 ease-out"
+                      style={{ backgroundColor: social.color.bg }}
+                    />
+                    <Icon className="h-5 w-5 relative z-10" />
                   </a>
                 )
               })}

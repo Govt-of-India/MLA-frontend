@@ -40,21 +40,29 @@ export function JourneySection() {
         <div className="mb-8">
           <SectionHeading title={t("label")} />
         </div>
-        <div className="flex flex-wrap gap-2 justify-center mb-8">
-          {journeyMilestones.map((milestone, index) => (
-            <button
-              key={milestone.year}
-              type="button"
-              onClick={() => handleSelectYear(index)}
-              className={`px-4 py-2 rounded-full border text-sm font-semibold transition-all ${
-                activeIndex === index
-                  ? "bg-[#FF7A59] border-[#FF7A59] text-white shadow-lg shadow-[#FF7A59]/40"
-                  : "border-slate-200 text-slate-600 hover:border-[#FF7A59]/50 hover:text-[#FF7A59]"
-              }`}
-            >
-              {milestone.year}
-            </button>
-          ))}
+        {/* Timeline buttons - horizontally scrollable on mobile */}
+        <div className="relative mb-8">
+          <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+            <div className="flex gap-2 sm:gap-3 justify-start sm:justify-center min-w-max sm:min-w-0 py-1">
+              {journeyMilestones.map((milestone, index) => (
+                <button
+                  key={milestone.year}
+                  type="button"
+                  onClick={() => handleSelectYear(index)}
+                  className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full border text-sm font-semibold transition-all whitespace-nowrap flex-shrink-0 ${
+                    activeIndex === index
+                      ? "bg-[#FF7A59] border-[#FF7A59] text-white shadow-lg shadow-[#FF7A59]/40"
+                      : "border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:border-[#FF7A59]/50 hover:text-[#FF7A59] bg-white dark:bg-slate-800"
+                  }`}
+                >
+                  {milestone.year}
+                </button>
+              ))}
+            </div>
+          </div>
+          {/* Fade indicators for scroll on mobile */}
+          <div className="absolute left-0 top-0 bottom-0 w-4 bg-gradient-to-r from-saffron-50 to-transparent pointer-events-none sm:hidden" />
+          <div className="absolute right-0 top-0 bottom-0 w-4 bg-gradient-to-l from-saffron-50 to-transparent pointer-events-none sm:hidden" />
         </div>
 
         <div className="relative">

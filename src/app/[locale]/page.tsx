@@ -5,9 +5,7 @@ import { JourneySection } from "@/components/sections/journey"
 import { MLAProfile } from "@/components/sections/mla-profile"
 import { Achievements } from "@/components/sections/achievements"
 import { DevelopmentProjects } from "@/components/sections/development-projects"
-import { NewsSection } from "@/components/sections/news-section"
 import { EventsCalendar } from "@/components/sections/events-calendar"
-import { PhotoGallery } from "@/components/sections/photo-gallery"
 import { VideoSection } from "@/components/sections/video-section"
 import { ContactForm } from "@/components/sections/contact-form"
 import { mockPhotos } from "@/lib/mock-data"
@@ -69,9 +67,7 @@ export default async function HomePage() {
       <MLAProfile />
       <Achievements />
       <DevelopmentProjects />
-      <NewsSection />
       <EventsCalendar />
-      <PhotoGallery />
       <VideoSection />
       <ContactForm />
     </div>

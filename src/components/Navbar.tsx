@@ -112,17 +112,24 @@ export function Navbar() {
           <div className="flex items-center space-x-4 ml-auto">
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10 rounded-md ${
-                    isRouteActive(item.href) ? "bg-white/20" : ""
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const isActive = isRouteActive(item.href)
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`relative px-4 py-2 text-sm font-medium text-white transition-all duration-200 hover:bg-white/15 rounded-md ${
+                      isActive ? "bg-white/25" : ""
+                    }`}
+                  >
+                    {item.label}
+                    {/* Active indicator - bottom bar */}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-0.5 bg-white rounded-full" />
+                    )}
+                  </Link>
+                )
+              })}
             </div>
 
             {/* Right Side Icons */}
@@ -221,76 +228,120 @@ export function Navbar() {
               <Search className="h-5 w-5" />
             </Button>
 
-            {/* Hamburger Menu */}
+            {/* Hamburger Menu - Always visible with animation */}
             <Button
               variant="ghost"
               size="icon"
-              className="h-9 w-9 rounded-full text-white hover:bg-white/20"
+              className={`h-10 w-10 rounded-full text-white border-2 transition-all duration-300 ease-in-out ${
+                mobileMenuOpen 
+                  ? "bg-white/25 border-white rotate-90 scale-110" 
+                  : "bg-white/10 border-white/30 hover:bg-white/25 hover:border-white/50 hover:scale-110"
+              }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
+              <div className="relative h-5 w-5">
+                <Menu className={`h-5 w-5 absolute inset-0 transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-0 rotate-90 scale-0" : "opacity-100 rotate-0 scale-100"
+                }`} />
+                <X className={`h-5 w-5 absolute inset-0 transition-all duration-300 ${
+                  mobileMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-0"
+                }`} />
+              </div>
             </Button>
             </div>
           </div>
         </div>
 
-        {/* Half Screen Glass Transparent Overlay Menu */}
+        {/* Mobile Menu Overlay */}
         {mobileMenuOpen && (
           <>
             {/* Transparent Overlay Background */}
             <div
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 animate-fade-in"
               onClick={() => setMobileMenuOpen(false)}
             />
-            {/* Glass Menu Panel - Reduced Width */}
-            <div className="fixed right-0 top-0 h-full w-80 z-50 flex flex-col">
-              <div className="h-full bg-white/10 dark:bg-slate-900/10 backdrop-blur-2xl border-l border-white/20 dark:border-slate-700/20 shadow-2xl p-8 overflow-y-auto">
-                {/* Close Button */}
-                <div className="flex justify-end mb-8">
+            {/* Glass Menu Panel */}
+            <div className="fixed right-0 top-0 h-full w-[85vw] max-w-sm z-50 flex flex-col animate-slide-in-right">
+              <div className="h-full bg-gradient-to-b from-[#FF7A59] to-[#e86a4a] dark:from-slate-900 dark:to-slate-800 border-l border-white/20 dark:border-slate-700/20 shadow-2xl overflow-y-auto">
+                {/* Header with Close Button */}
+                <div className="flex items-center justify-between p-4 border-b border-white/20">
+                  <span className="text-white font-semibold text-lg">{t("menu")}</span>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="h-10 w-10 rounded-full text-white hover:bg-white/15 border border-white/20 backdrop-blur-sm"
+                    className="h-10 w-10 rounded-full text-white hover:bg-white/15 border border-white/20"
                     aria-label="Close menu"
                   >
                     <X className="h-5 w-5" />
                   </Button>
                 </div>
-                {/* Contact Information */}
-                <div className="space-y-4 mb-8">
-                  <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wide">Contact</h3>
-                  
-                  {/* Email */}
-                  <a
-                    href={`mailto:${contactInfo.email}`}
-                    className="flex items-center gap-3 px-6 py-4 text-base font-medium rounded-lg transition-all backdrop-blur-md text-white hover:bg-white/10 border border-white/15"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Mail className="h-5 w-5 flex-shrink-0" />
-                    <span className="text-sm">{contactInfo.email}</span>
-                  </a>
 
-                  {/* Phone */}
-                  <a
-                    href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
-                    className="flex items-center gap-3 px-6 py-4 text-base font-medium rounded-lg transition-all backdrop-blur-md text-white hover:bg-white/10 border border-white/15"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <Phone className="h-5 w-5 flex-shrink-0" />
-                    <span className="text-sm">{contactInfo.phone}</span>
-                  </a>
+                {/* Navigation Links */}
+                <nav className="p-4">
+                  <h3 className="text-white/70 text-xs font-semibold mb-3 uppercase tracking-wider px-2">
+                    {t("navigation")}
+                  </h3>
+                  <div className="space-y-1">
+                    {navItems.map((item) => {
+                      const isActive = isRouteActive(item.href)
+                      return (
+                        <Link
+                          key={item.href}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-xl transition-all ${
+                            isActive
+                              ? "bg-white/25 text-white border-l-4 border-white"
+                              : "text-white/90 hover:bg-white/10 hover:text-white"
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      )
+                    })}
+                  </div>
+                </nav>
+
+                {/* Divider */}
+                <div className="mx-4 border-t border-white/20" />
+
+                {/* Contact Information */}
+                <div className="p-4">
+                  <h3 className="text-white/70 text-xs font-semibold mb-3 uppercase tracking-wider px-2">
+                    {t("contactInfo")}
+                  </h3>
+                  <div className="space-y-2">
+                    <a
+                      href={`mailto:${contactInfo.email}`}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all text-white/90 hover:bg-white/10 hover:text-white"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Mail className="h-4 w-4 flex-shrink-0" />
+                      <span className="truncate">{contactInfo.email}</span>
+                    </a>
+                    <a
+                      href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}
+                      className="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-xl transition-all text-white/90 hover:bg-white/10 hover:text-white"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <Phone className="h-4 w-4 flex-shrink-0" />
+                      <span>{contactInfo.phone}</span>
+                    </a>
+                  </div>
                 </div>
 
-                {/* Social Media Buttons - Horizontal */}
-                <div>
-                  <h3 className="text-white text-sm font-semibold mb-4 uppercase tracking-wide">Follow</h3>
-                  <div className="flex flex-wrap gap-3">
+                {/* Divider */}
+                <div className="mx-4 border-t border-white/20" />
+
+                {/* Social Media Links */}
+                <div className="p-4">
+                  <h3 className="text-white/70 text-xs font-semibold mb-3 uppercase tracking-wider px-2">
+                    {t("follow")}
+                  </h3>
+                  <div className="flex flex-wrap gap-2 px-2">
                     {socialLinks.map((social) => {
                       const Icon = social.icon
                       return (
@@ -299,7 +350,7 @@ export function Navbar() {
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="h-12 w-12 rounded-full bg-[#FF7A59]/40 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white hover:bg-[#FF7A59]/60 hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+                          className="h-11 w-11 rounded-full bg-white/15 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 hover:scale-105 transition-all duration-200"
                           aria-label={social.label}
                           onClick={() => setMobileMenuOpen(false)}
                         >
@@ -309,6 +360,7 @@ export function Navbar() {
                     })}
                   </div>
                 </div>
+
               </div>
             </div>
           </>
