@@ -228,19 +228,23 @@ export function Navbar() {
               <Search className="h-5 w-5" />
             </Button>
 
-            {/* Hamburger Menu - Always visible with animation */}
+            {/* Hamburger Menu - Always visible with animation and glow effect */}
             <Button
               variant="ghost"
               size="icon"
-              className={`h-10 w-10 rounded-full text-white border-2 transition-all duration-300 ease-in-out ${
+              className={`relative h-11 w-11 rounded-xl text-white border-2 transition-all duration-300 ease-in-out shadow-lg ${
                 mobileMenuOpen 
-                  ? "bg-white/25 border-white rotate-90 scale-110" 
-                  : "bg-white/10 border-white/30 hover:bg-white/25 hover:border-white/50 hover:scale-110"
+                  ? "bg-white text-[#FF7A59] border-white rotate-180 scale-110 shadow-white/40" 
+                  : "bg-white/15 border-white/50 hover:bg-white hover:text-[#FF7A59] hover:border-white hover:scale-110 hover:shadow-white/30 animate-pulse-subtle"
               }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
             >
+              {/* Glow ring indicator */}
+              <span className={`absolute inset-0 rounded-xl transition-all duration-500 ${
+                mobileMenuOpen ? "opacity-0" : "animate-ping-slow opacity-30 bg-white"
+              }`} />
               <div className="relative h-5 w-5">
                 <Menu className={`h-5 w-5 absolute inset-0 transition-all duration-300 ${
                   mobileMenuOpen ? "opacity-0 rotate-90 scale-0" : "opacity-100 rotate-0 scale-100"
@@ -284,21 +288,44 @@ export function Navbar() {
                   <h3 className="text-white/70 text-xs font-semibold mb-3 uppercase tracking-wider px-2">
                     {t("navigation")}
                   </h3>
-                  <div className="space-y-1">
-                    {navItems.map((item) => {
+                  <div className="space-y-2">
+                    {navItems.map((item, index) => {
                       const isActive = isRouteActive(item.href)
                       return (
                         <Link
                           key={item.href}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className={`flex items-center gap-3 px-4 py-3 text-base font-medium rounded-xl transition-all ${
+                          className={`group relative flex items-center justify-between px-4 py-3.5 text-base font-medium rounded-xl transition-all duration-200 overflow-hidden ${
                             isActive
-                              ? "bg-white/25 text-white border-l-4 border-white"
-                              : "text-white/90 hover:bg-white/10 hover:text-white"
+                              ? "bg-white text-[#FF7A59] shadow-lg shadow-white/20"
+                              : "text-white/90 hover:bg-white/15 hover:text-white hover:translate-x-1"
                           }`}
+                          style={{ animationDelay: `${index * 50}ms` }}
                         >
-                          {item.label}
+                          {/* Active indicator bar on left */}
+                          <span className={`absolute left-0 top-0 bottom-0 w-1 rounded-r-full transition-all duration-300 ${
+                            isActive ? "bg-[#FF7A59]" : "bg-transparent group-hover:bg-white/50"
+                          }`} />
+                          
+                          {/* Nav item label */}
+                          <span className="relative z-10 ml-2">{item.label}</span>
+                          
+                          {/* Active checkmark indicator */}
+                          {isActive && (
+                            <span className="flex items-center justify-center h-6 w-6 rounded-full bg-[#FF7A59]/15">
+                              <Check className="h-4 w-4 text-[#FF7A59]" />
+                            </span>
+                          )}
+                          
+                          {/* Hover arrow for non-active items */}
+                          {!isActive && (
+                            <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                              <svg className="h-4 w-4 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </span>
+                          )}
                         </Link>
                       )
                     })}

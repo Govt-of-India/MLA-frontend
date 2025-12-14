@@ -181,7 +181,7 @@ export function ContactForm() {
                 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                   {/* Name Field */}
-                  <div className="space-y-2">
+              <div className="space-y-2">
                     <label htmlFor="name" className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                       <User className="h-4 w-4 text-[#FF7A59]" />
                       <span>{t("fields.name.label")}</span>
@@ -189,9 +189,9 @@ export function ContactForm() {
                     </label>
                     <div className="relative">
                       <input
-                        id="name"
-                        {...register("name")}
-                        placeholder={t("fields.name.placeholder")}
+                  id="name"
+                  {...register("name")}
+                  placeholder={t("fields.name.placeholder")}
                         className={`w-full h-12 px-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-800 text-sm transition-all duration-200 outline-none
                           ${getFieldStatus("name") === "error" 
                             ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/20" 
@@ -209,16 +209,16 @@ export function ContactForm() {
                         <AlertCircle className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500" />
                       )}
                     </div>
-                    {errors.name && (
+                {errors.name && (
                       <p className="text-sm text-red-500 flex items-center gap-1">
                         <AlertCircle className="h-3 w-3" />
                         {errors.name.message}
                       </p>
-                    )}
-                  </div>
+                )}
+              </div>
 
                   {/* Email Field */}
-                  <div className="space-y-2">
+              <div className="space-y-2">
                     <label htmlFor="email" className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                       <Mail className="h-4 w-4 text-[#FF7A59]" />
                       <span>{t("fields.email.label")}</span>
@@ -226,10 +226,10 @@ export function ContactForm() {
                     </label>
                     <div className="relative">
                       <input
-                        id="email"
-                        type="email"
-                        {...register("email")}
-                        placeholder={t("fields.email.placeholder")}
+                  id="email"
+                  type="email"
+                  {...register("email")}
+                  placeholder={t("fields.email.placeholder")}
                         className={`w-full h-12 px-4 rounded-xl border-2 bg-slate-50 dark:bg-slate-800 text-sm transition-all duration-200 outline-none
                           ${getFieldStatus("email") === "error" 
                             ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/20" 
@@ -247,31 +247,31 @@ export function ContactForm() {
                         <AlertCircle className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-red-500" />
                       )}
                     </div>
-                    {errors.email && (
+                {errors.email && (
                       <p className="text-sm text-red-500 flex items-center gap-1">
                         <AlertCircle className="h-3 w-3" />
                         {errors.email.message}
                       </p>
-                    )}
-                  </div>
+                )}
+              </div>
 
                   {/* Phone Field */}
-                  <div className="space-y-2">
+              <div className="space-y-2">
                     <label htmlFor="phone" className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                       <Phone className="h-4 w-4 text-[#FF7A59]" />
                       <span>{t("fields.phone.label")}</span>
                     </label>
                     <input
-                      id="phone"
-                      type="tel"
-                      {...register("phone")}
-                      placeholder={t("fields.phone.placeholder")}
+                  id="phone"
+                  type="tel"
+                  {...register("phone")}
+                  placeholder={t("fields.phone.placeholder")}
                       className="w-full h-12 px-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm transition-all duration-200 outline-none focus:border-[#FF7A59] focus:ring-4 focus:ring-[#FF7A59]/20 placeholder:text-slate-500 dark:placeholder:text-slate-400"
-                    />
-                  </div>
+                />
+              </div>
 
                   {/* Message Field */}
-                  <div className="space-y-2">
+              <div className="space-y-2">
                     <label htmlFor="message" className="flex items-center gap-2 text-sm font-medium text-slate-700 dark:text-slate-300">
                       <MessageSquare className="h-4 w-4 text-[#FF7A59]" />
                       <span>{t("fields.message.label")}</span>
@@ -279,10 +279,10 @@ export function ContactForm() {
                     </label>
                     <div className="relative">
                       <textarea
-                        id="message"
-                        {...register("message")}
-                        placeholder={t("fields.message.placeholder")}
-                        rows={5}
+                  id="message"
+                  {...register("message")}
+                  placeholder={t("fields.message.placeholder")}
+                  rows={5}
                         className={`w-full px-4 py-3 rounded-xl border-2 bg-slate-50 dark:bg-slate-800 text-sm transition-all duration-200 outline-none resize-none
                           ${getFieldStatus("message") === "error" 
                             ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/20" 
@@ -300,13 +300,13 @@ export function ContactForm() {
                         <AlertCircle className="absolute right-4 top-4 h-5 w-5 text-red-500" />
                       )}
                     </div>
-                    {errors.message && (
+                {errors.message && (
                       <p className="text-sm text-red-500 flex items-center gap-1">
                         <AlertCircle className="h-3 w-3" />
                         {errors.message.message}
                       </p>
-                    )}
-                  </div>
+                )}
+              </div>
 
                   {/* Submit Button */}
                   <Button 
@@ -325,11 +325,11 @@ export function ContactForm() {
                         {t("submit")}
                       </span>
                     )}
-                  </Button>
-                </form>
+              </Button>
+            </form>
               </div>
             </div>
-          </Card>
+        </Card>
         </div>
       </div>
     </section>
